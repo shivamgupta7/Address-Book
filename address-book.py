@@ -28,12 +28,25 @@ def open_addressbook(filepath):
     
     return addressbook
 
+def printAllContacts(filepath):
+    """
+    Function to print list of all contacts details in the addressbook
+    Returns 
+    """
+    addressbook = open_addressbook(filepath)
+    if addressbook:
+        for person in addressbook['person']:
+            print('First Name: ' + person['fname'], 'Last Name : ' + person['lname'], 'Address: ' + person['address'], 'City: ' + person['city'], 'State: ' + person['state'], 'Zip: ' + person['zipCode'], 'Telephone: ' + person['phone'], sep='\t', end='\n' )
+    else:
+        print('No address book found!')
+
 def menu():
     '''
     Menu of programs
     '''
     print('''
     1.Open Address book(load json file)
+    2.Print all person contacts
     ''')
 
 def switchToFunction(case,filepath):
@@ -42,6 +55,7 @@ def switchToFunction(case,filepath):
     '''
     switcher = {
         1 : lambda: open_addressbook(filepath),
+        2 : lambda: printAllContacts(filepath),
         }
     func = switcher.get(case, lambda: 'Invalid choice please select correct options.')
     print(func())
